@@ -17,7 +17,5 @@ export default class FotoController{
         }) 
         res.json(foto)
     }
-
-    
-
 }
+

@@ -5,6 +5,5 @@ import { fotoValidator, fotoUpdateValidator, fotoIdValidator } from '../validato
 const router = Router()
 
 router.get('/', FotoController.index)
-router.post('/', FotoController.create)
-
+router.post('/', fotoUpdateValidator, FotoController.create)
 export default router
