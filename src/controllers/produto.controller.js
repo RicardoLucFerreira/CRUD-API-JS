@@ -8,6 +8,8 @@ export default class ProdutoController{
         include: {
             fotos: true
         }
+
+        return res.json(produtos)
     }
 
     static async create(req, res){
