@@ -7,7 +7,6 @@ export const fotoValidator = [
 ]
 
 export const fotoUpdateValidator = [
-    param('id').isInt().withMessage("ID é obrigatório"),
     body('titulo').isString().withMessage('Titulo é obrigatório'),
     body('url').isString().withMessage('URL é obrigatorio'),
     body('produtoId').isNumeric().withMessage('Produto ID é obrigatoria')

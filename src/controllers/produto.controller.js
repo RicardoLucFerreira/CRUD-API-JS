@@ -5,10 +5,7 @@ import Produto from '../models/produto.model.js'
 export default class ProdutoController{
     static async index(req, res){
         const produtos = await Produto.findMany()
-        include: {
-            fotos: true
-        }
-
+        
         return res.json(produtos)
     }
 
@@ -48,32 +45,46 @@ export default class ProdutoController{
     }
 
     static async update(req, res){
+        const erros = validationResult(req)
+        if(!erros.isEmpty()){
+            res.status(400).json({erros: erros.array()})
+        }
+
         const produto = await Produto.findUnique({
             where: {
                 id: parseInt(req.params.id)
             }
         })
-    if (!produto){
-        return res.status(404).json({ message: "Produto não encontrado"})
-    }
-    const updateProduto = await Produto.update({
-        where: {
+
+        if (!produto){
+            return res.status(404).json({ message: "Produto não encontrado"})
+        }
+
+        const updateProduto = await Produto.update({
+            where: {
             id: parseInt(req.params.id)
         },
         data: req.body
-    })
-    res.json(updateProduto) 
+        })
+        res.json(updateProduto) 
     }
 
     static async delete(req, res){
+        const erros = validationResult(req)
+        if(!erros.isEmpty){
+            return res.status(400).json({erros: erros.array()})
+        }
+
         const produto = await Produto.findUnique({
             where: {
                 id: parseInt(req.params.id)
             }
         })
+
         if(!produto){
             return res.status(404).json({message: "Produto não encontrado"})
         }
+
         await Produto.delete({
             where: {
                 id: parseInt(req.params.id)

@@ -6,5 +6,4 @@ const router = Router()
 
 router.get('/', FotoController.index)
 router.post('/', fotoUpdateValidator, FotoController.create)
-
 export default router
